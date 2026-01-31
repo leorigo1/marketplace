@@ -1,8 +1,12 @@
 package leonardorigo.marketplace.entities;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,13 +20,18 @@ public class UserEntity {
 	private String password;
 	private String email;
 	
-	public UserEntity () {}
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private List<ProductEntity> products;
 	
-	public UserEntity(Long id, String name, String password, String email) {
+	public UserEntity () {}
+
+	public UserEntity(Long id, String name, String password, String email, List<ProductEntity> products) {
+		super();
 		this.id = id;
 		this.name = name;
 		this.password = password;
 		this.email = email;
+		this.products = products;
 	}
 
 	public Long getId() {
@@ -55,5 +64,13 @@ public class UserEntity {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public List<ProductEntity> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<ProductEntity> products) {
+		this.products = products;
 	}
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import leonardorigo.marketplace.DTOS.CreateProductDTO;
 import leonardorigo.marketplace.entities.ProductEntity;
 import leonardorigo.marketplace.services.ApiResponse;
 import leonardorigo.marketplace.services.ProductService;
@@ -27,26 +28,29 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 	
-	@PostMapping("/create")
-	public ResponseEntity<ApiResponse> createProduct (@RequestBody ProductEntity product) {
-		productService.createProduct(product);
-		return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse("Produto Criado com sucesso!"));
+	@PostMapping("/create/{userId}")
+	public ResponseEntity<ApiResponse> createProduct (@RequestBody CreateProductDTO product,
+													  @PathVariable Long userId) {
+		
+		productService.createProduct(product,userId);
+		return ResponseEntity
+			   .status(HttpStatus.CREATED)
+			   .body(new ApiResponse("Produto Criado com sucesso!"));
 	}
 	
-	@GetMapping("/find-all")
-	public ResponseEntity<List<ProductEntity>> findAll() {
+	@GetMapping("/list-all")
+	public ResponseEntity<List<ProductEntity>> listAll() {
 	    return ResponseEntity.ok(productService.listAllProducts());
 	}
 	
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<Void> deleteProduct (@PathVariable String id) {
+	public ResponseEntity<ApiResponse> deleteProduct (@PathVariable String id) {
 		productService.deleteProductbyId(id);
-		return ResponseEntity.ok().build();
+		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Produto deletado com sucesso!"));
 	}
 	
 	@GetMapping("/find/{id}")
 	ResponseEntity<Optional<ProductEntity>> viewProduct (@PathVariable String id) {
 		return ResponseEntity.ok(productService.viewProduct(id));
 	}
-	
 }

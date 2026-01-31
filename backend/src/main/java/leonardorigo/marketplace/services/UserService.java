@@ -1,5 +1,7 @@
 package leonardorigo.marketplace.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +21,9 @@ public class UserService {
 		user.setName(data.getName());
 		user.setPassword(data.getPassword());
 		userRepository.save(user);
+	}
+	
+	public List<UserEntity> listAllUsers() {
+		return userRepository.findAll();
 	}
 }
