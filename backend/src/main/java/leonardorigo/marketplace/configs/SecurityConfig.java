@@ -16,7 +16,8 @@ public class SecurityConfig {
 						"/h2-console/**",
 						"/auth",
 					    "/swagger-ui/**",
-					    "/v3/api-docs/**"
+					    "/v3/api-docs/**",
+					    "/product/**"
 						).permitAll().anyRequest().authenticated())
 		.headers(headers -> headers.frameOptions(frame -> frame.disable()));
 		
