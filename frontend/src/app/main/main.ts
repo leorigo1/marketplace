@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../services/ProductService';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-main',
@@ -13,20 +14,18 @@ export class Main {
 
 products: any[] = [];
 
-  constructor(private service: ProductService) {}
+  constructor(private service: ProductService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
 
     this.service.getAllProducts().subscribe({
       next: (data) => {
          this.products = data;
-         console.log(data)
+         this.cdr.detectChanges();
       },
       error: (err) => {
         console.log("Erro: " + err)
       }
     })
   }
-
-
 }
