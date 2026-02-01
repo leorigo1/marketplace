@@ -1,17 +1,27 @@
 package leonardorigo.marketplace.DTOS;
 
-public class CreateProductDTO {
+public class ProductResponseDTO {
 
+	private String id;
 	private String name;
 	private String description;
 	private Double price;
+	private UserResponseDTO user;
 	
-	public CreateProductDTO() {}
-
-	public CreateProductDTO(String name, String description, Double price) {
+	public ProductResponseDTO(String id, String name, String description, Double price, UserResponseDTO user) {
+		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.price = price;
+		this.user = user;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -36,5 +46,13 @@ public class CreateProductDTO {
 
 	public void setPrice(Double price) {
 		this.price = price;
+	}
+
+	public UserResponseDTO getUser() {
+		return user;
+	}
+
+	public void setUser(UserResponseDTO user) {
+		this.user = user;
 	}
 }

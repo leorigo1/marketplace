@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import leonardorigo.marketplace.DTOS.CreateProductDTO;
+import leonardorigo.marketplace.DTOS.ProductResponseDTO;
 import leonardorigo.marketplace.entities.ProductEntity;
 import leonardorigo.marketplace.services.ApiResponse;
 import leonardorigo.marketplace.services.ProductService;
@@ -32,14 +33,14 @@ public class ProductController {
 	public ResponseEntity<ApiResponse> createProduct (@RequestBody CreateProductDTO product,
 													  @PathVariable Long userId) {
 		
-		productService.createProduct(product,userId);
+		productService.createProduct(product, userId);
 		return ResponseEntity
 			   .status(HttpStatus.CREATED)
-			   .body(new ApiResponse("Produto Criado com sucesso!"));
+			   .body(new ApiResponse("Produto criado com sucesso!"));
 	}
 	
 	@GetMapping("/list-all")
-	public ResponseEntity<List<ProductEntity>> listAll() {
+	public ResponseEntity<List<ProductResponseDTO>> listAll() {
 	    return ResponseEntity.ok(productService.listAllProducts());
 	}
 	
