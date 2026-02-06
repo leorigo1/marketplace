@@ -24,12 +24,6 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@PostMapping("/register")
-	public ResponseEntity<ApiResponse> register(@RequestBody RegisterDTO data) {
-		userService.RegisterUser(data);
-		return ResponseEntity.ok().body(new ApiResponse ("Usuário registrado com sucesso!"));
-	}
-	
 	@GetMapping("/list-all")
 	public ResponseEntity<List<UserEntity>> listUsers() {
 		return ResponseEntity.ok().body(userService.listAllUsers());
